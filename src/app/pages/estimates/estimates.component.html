@@ -1,0 +1,43 @@
+<form [formGroup]="fg" (submit)="submit($event)">
+  <div class="">
+    <label>Choose a Project:</label>
+    <app-dropdown
+      [control]="projectEstimate.project"
+      [options]="projectService.projectOptions"
+    >
+    </app-dropdown>
+  </div>
+  <label>Total Hours</label>
+  <input placeholder="" disabled [value]="total" />
+  <ng-container formArrayName="estimates">
+    <ng-container
+      *ngFor="let estimateForm of estimates.controls; let index = index"
+    >
+      <div [formGroup]="estimateForm">
+        <div class="estimate-container">
+          <div class="">
+            <label>Choose an Employee:</label>
+            <app-dropdown
+              [control]="estimateForm.controls.employee"
+              [options]="employeeService.employeeOptions"
+            >
+            </app-dropdown>
+          </div>
+          <app-input
+            label="Estimate"
+            placeholder="Enter Estimate"
+            [control]="estimateForm.controls.estimate"
+          ></app-input>
+          <app-input
+            label="Actual"
+            placeholder="Enter Actual"
+            [control]="estimateForm.controls.actual"
+          ></app-input>
+          <button type="button" (click)="addRowEstimate()">+</button>
+          <button type="button" (click)="removeRowEstimate(index)">-</button>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+  <button [disabled]="fg.invalid" type="submit">Submit</button>
+</form>

@@ -1,0 +1,12 @@
+<div class="input-container">
+  <label>{{ label }}</label>
+  <div class="">
+    <input [formControl]="control" [type]="type" [placeholder]="placeholder" />
+    <ng-container *ngIf="control.touched">
+      <p *ngIf="control.getError('required')" class="error">
+        Field is required
+      </p>
+      <p *ngIf="control.getError('min')" class="error">Value too low.</p>
+    </ng-container>
+  </div>
+</div>
